@@ -4,8 +4,6 @@ import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
-import { Trash2 } from "lucide-react";
 import type { Id } from "@/convex/_generated/dataModel";
 
 interface Task {
@@ -54,34 +52,48 @@ export function TaskItem({ task }: TaskItemProps) {
   };
 
   return (
-    <Card className="mb-3">
-      <CardContent className="p-4">
-        <div className="flex items-center justify-between gap-3">
-          <div className="flex items-center gap-3 flex-1 min-w-0">
-            <button
-              onClick={handleToggleStatus}
-              className={`text-left flex-1 min-w-0 ${
-                task.status === "completed"
-                  ? "line-through text-muted-foreground"
-                  : ""
-              }`}
-            >
-              <span className="block truncate">{task.title}</span>
-            </button>
-            <Badge variant={getPriorityVariant(task.priority) as "high" | "medium" | "low" | "default"}>
-              {task.priority}
-            </Badge>
+    <div className="terminal-border bg-card p-4 mb-4 hover:border-accent transition-colors">
+      <div 
+        className="grid gap-3"
+        style={{ 
+          gridTemplateRows: 'auto auto',
+          gridTemplateColumns: '1fr'
+        }}
+      >
+        {/* Row 1: Task description */}
+        <div className="grid grid-cols-[auto_1fr] gap-4 items-center">
+          <div className="mono-text text-xs text-muted-foreground">
+            {task.status === "completed" ? "[✓]" : "[ ]"}
           </div>
+          <button
+            onClick={handleToggleStatus}
+            className={`text-left mono-text ${
+              task.status === "completed"
+                ? "line-through text-muted-foreground"
+                : "text-foreground hover:text-primary"
+            } transition-colors`}
+          >
+            <span className="block truncate font-medium">
+              {task.status === "completed" ? "TASK_COMPLETED:" : "TASK_ACTIVE:"} {task.title}
+            </span>
+          </button>
+        </div>
+        
+        {/* Row 2: Priority and actions */}
+        <div className="grid grid-cols-[auto_1fr_auto] gap-4 items-center ml-8">
+          <Badge variant={getPriorityVariant(task.priority) as "high" | "medium" | "low" | "default"}>
+            {task.priority}
+          </Badge>
+          <div></div>
           <Button
             variant="destructive"
-            size="icon"
+            size="sm"
             onClick={handleDelete}
-            className="flex-shrink-0"
           >
-            <Trash2 className="h-4 w-4" />
+            DEL
           </Button>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 }

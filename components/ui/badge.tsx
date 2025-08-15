@@ -3,17 +3,18 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const badgeVariants = cva(
-  "inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
+  "inline-flex items-center border-2 px-3 py-1 text-xs font-mono font-bold uppercase tracking-wider transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
   {
     variants: {
       variant: {
-        default: "border-transparent bg-primary text-primary-foreground shadow hover:bg-primary/80",
-        secondary: "border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80",
-        destructive: "border-transparent bg-destructive text-destructive-foreground shadow hover:bg-destructive/80",
-        outline: "text-foreground",
-        high: "border-transparent bg-red-100 text-red-800 hover:bg-red-200",
-        medium: "border-transparent bg-yellow-100 text-yellow-800 hover:bg-yellow-200",
-        low: "border-transparent bg-green-100 text-green-800 hover:bg-green-200",
+        default: "border-primary bg-primary text-primary-foreground hover:bg-background hover:text-primary",
+        secondary: "border-secondary bg-secondary text-secondary-foreground hover:bg-background hover:text-secondary-foreground",
+        destructive: "border-destructive bg-destructive text-destructive-foreground hover:bg-background hover:text-destructive",
+        outline: "border-foreground text-foreground hover:bg-foreground hover:text-background",
+        high: "border-destructive bg-background text-destructive hover:bg-destructive hover:text-background",
+        medium: "border-warning bg-background text-warning hover:bg-warning hover:text-background",
+        low: "border-success bg-background text-success hover:bg-success hover:text-background",
+        terminal: "border-terminal-green bg-background text-terminal-green hover:bg-terminal-green hover:text-background",
       },
     },
     defaultVariants: {
